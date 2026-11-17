@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- The picture shared with a link to the site (public/og-en.png, public/og-es.png): open
+     this file in a browser with ?lang=es for Spanish and capture the 1200×630 card. The
+     window in it is a real capture of the app (docs/screenshots in the app repository). -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face { font-family: "Plus Jakarta Sans"; src: url("../public/fonts/PlusJakartaSans-latin.woff2") format("woff2"); font-weight: 200 800; }
+      body { margin: 0; background: #fff; }
+      #card { position: relative; width: 1200px; height: 630px; overflow: hidden; background: #f6f7fb; color: #23233a; font-family: "Plus Jakarta Sans", sans-serif; }
+      .halo { position: absolute; border-radius: 50%; filter: blur(90px); }
+      .text { position: absolute; left: 64px; top: 64px; width: 520px; }
+      .name { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+      .orb { width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #fff4e6 0 12%, transparent 42%), radial-gradient(circle at 70% 36%, #afc6ff 0 10%, transparent 52%), radial-gradient(circle at 44% 76%, #f7b8d8 0 8%, transparent 50%), radial-gradient(circle at 78% 78%, #9a8cf0 0 6%, transparent 46%), #d6e3ff; }
+      h1 { margin: 56px 0 0; font-size: 62px; line-height: 1.04; letter-spacing: -0.035em; }
+      h1 span { background: linear-gradient(90deg, #e7ddfb, #ffd9e4) no-repeat 0 86% / 100% 36%; }
+      p { margin: 26px 0 0; font-size: 24px; line-height: 1.4; color: #5c5f74; }
+      .win { position: absolute; left: 640px; top: 96px; width: 760px; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px #e8eaf2, 0 40px 110px rgb(154 140 240 / 0.45); }
+      .win img { display: block; width: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="card">
+      <div class="halo" style="width: 620px; height: 620px; right: -120px; top: 40px; background: rgb(154 140 240 / 0.35)"></div>
+      <div class="halo" style="width: 380px; height: 380px; left: -140px; bottom: -160px; background: rgb(247 184 216 / 0.4)"></div>
+      <div class="text">
+        <div class="name"><svg width="46" height="46" viewBox="2 2 60 60" fill="none" stroke-width="8" stroke-linecap="round" class="orb"><path d="M19.5 37A13.5 13.5 0 0 1 37 19.5" stroke="#23233a" /><path d="M44.5 27A13.5 13.5 0 0 1 27 44.5" stroke="#5b4bc4" /></svg>Ogmios</div>
+        <h1 id="title"></h1>
+        <p id="lead"></p>
+      </div>
+      <div class="win"><img src="og-source.png" alt="" /></div>
+    </div>
+    <script>
+      const es = new URLSearchParams(location.search).get("lang") === "es";
+      document.documentElement.lang = es ? "es" : "en";
+      document.getElementById("title").innerHTML = es ? "Practica inglés hablado con IA, sin que <span>te interrumpan</span>" : "Practice English speaking with AI, without <span>interruptions</span>";
+      document.getElementById("lead").textContent = es ? "App de escritorio gratuita y de código abierto. Funciona con tu propio Claude." : "Free, open-source desktop app. Works with your own Claude.";
+    </script>
+  </body>
+</html>

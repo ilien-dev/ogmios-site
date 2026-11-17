@@ -1,0 +1,26 @@
+{
+  "name": "ogmios-site",
+  "type": "module",
+  "private": true,
+  "packageManager": "bun@1.4.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "demo:build": "bun run scripts/build-demo.ts",
+    "lighthouse": "bun run scripts/lighthouse.ts"
+  },
+  "dependencies": {
+    "astro": "7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/bun": "1.4.4",
+    "lighthouse": "^12.8.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "wrangler": "4.162.0"
+  }
+}

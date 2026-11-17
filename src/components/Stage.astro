@@ -1,0 +1,41 @@
+---
+// One window of the real app, played by a scene (src/scripts/scenes.ts). The frame is
+// empty until the script fills it, so the page loads without the app.
+import Mark from "./Mark.astro";
+import type { Strings } from "../i18n/strings";
+interface Props {
+  t: Strings;
+  scene: "talk" | "book" | "review";
+  /** What the window shows, for who cannot see it. */
+  label: string;
+  caption?: string;
+  book?: boolean;
+}
+const { t, scene, label, caption, book = false } = Astro.props;
+---
+
+<figure data-stage data-scene={scene} data-lang={t.lang} class="m-0">
+  <div class="overflow-hidden rounded-2xl bg-surface shadow-window">
+    <div class="flex h-10 items-center gap-2.5 border-b border-line px-4 text-[13px] text-ink-soft" aria-hidden="true">
+      <Mark size={18} />
+      <span class="font-semibold text-ink">Ogmios</span>
+      <span class="ml-auto flex items-center gap-4 text-ink-faint">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h10"></path></svg>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="0.6" y="0.6" width="8.8" height="8.8"></rect></svg>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0.5 0.5l9 9M9.5 0.5l-9 9"></path></svg>
+      </span>
+    </div>
+    <div data-view class="stage-view" role="img" aria-label={label}>
+      <iframe title={label} tabindex="-1" inert aria-hidden="true"></iframe>
+      <div data-pointer class="stage-pointer" aria-hidden="true">
+        <svg viewBox="0 0 22 22" width="22" height="22"><path d="M3 2l15 7.2-6.4 1.9L9.3 18z" fill="#23233a" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+      </div>
+      <div class="stage-veil">
+        <span class:list={["size-16 animate-breathe", book ? "orb-book" : "orb"]} aria-hidden="true"></span>
+        <span data-loading class="text-[15px] text-ink-soft">{t.stage.loading}</span>
+        <button data-play hidden class="btn btn-plain" type="button">{t.stage.play}</button>
+      </div>
+    </div>
+  </div>
+  {caption && <figcaption class="mt-4 text-center text-[14px] text-ink-soft">{caption}</figcaption>}
+</figure>

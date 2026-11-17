@@ -1,0 +1,426 @@
+---
+import Base from "../layouts/Base.astro";
+import Stage from "./Stage.astro";
+import ClaudeMark from "./ClaudeMark.astro";
+import { LINKS, type Strings } from "../i18n/strings";
+import demoInfo from "../../public/demo/version.json";
+interface Props {
+  t: Strings;
+}
+const { t } = Astro.props;
+const wrap = "relative mx-auto max-w-[1240px] px-4 sm:px-8";
+const eye = "text-[14px] font-semibold";
+const h2 = "text-[2.1rem] leading-[1.08] font-bold tracking-[-0.03em] sm:text-[3rem]";
+const lead = "max-w-[620px] text-[18px] text-ink-soft";
+const days = [48, 62, 78, 96, 118];
+const bars = Array.from({ length: 16 }, (_, i) => ({ time: (0.7 + (i % 5) * 0.13).toFixed(2), delay: (i * 0.06).toFixed(2) }));
+---
+
+<Base t={t}>
+  <!-- Hero -->
+  <section class="relative overflow-x-clip">
+    <div class="halo top-[380px] left-1/2 -ml-[380px] size-[760px] bg-(--glow-a)" aria-hidden="true"></div>
+    <div class="halo top-[60px] -left-[160px] size-[460px] bg-(--glow-b) [animation-duration:32s]" aria-hidden="true"></div>
+    <div class="halo top-[120px] -right-[160px] size-[460px] bg-(--glow-c) [animation-duration:36s]" aria-hidden="true"></div>
+    <div class:list={[wrap, "flex flex-col items-center gap-6 pt-16 pb-14 text-center sm:pt-20"]}>
+      <a
+        href={LINKS.repo}
+        class="inline-flex animate-rise items-center gap-2.5 rounded-full bg-surface py-1.5 pr-4 pl-1.5 text-[13px] font-medium sm:text-[14px] text-ink no-underline shadow-card transition-[translate,box-shadow] duration-400 ease-out-expo hover:-translate-y-0.5 hover:shadow-glow"
+      >
+        <span class="rounded-full bg-cta px-2.5 py-0.5 text-[13px] font-semibold whitespace-nowrap text-on-cta">{t.hero.pillTag}</span>
+        {t.hero.pill}
+        <span aria-hidden="true">→</span>
+      </a>
+      <h1 class="max-w-[960px] animate-rise text-[2.6rem] leading-[1.04] font-bold tracking-[-0.035em] [animation-delay:60ms] sm:text-[4.6rem]">
+        {t.hero.titleA} <span class="mark">{t.hero.titleMark}</span>{t.hero.titleB}
+      </h1>
+      <p class="max-w-[660px] animate-rise text-[19px] text-ink-soft [animation-delay:120ms]">{t.hero.lead}</p>
+      <div class="flex animate-rise flex-wrap justify-center gap-3 [animation-delay:180ms]">
+        <a class="btn btn-cta" href="#install">{t.hero.primary} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-plain" href={LINKS.repo}>{t.hero.secondary}</a>
+      </div>
+      <a href="#claude" class="inline-flex animate-rise items-center gap-2 text-[14px] text-ink-soft no-underline transition-colors duration-300 [animation-delay:240ms] hover:text-ink">
+        <ClaudeMark size={16} class="text-claude" />
+        {t.hero.needs}
+      </a>
+      <div data-rv="z" class="relative mt-8 w-full max-w-[1040px]" style="--d:.15s">
+        <Stage t={t} scene="talk" label={t.hero.stageLabel} caption={t.hero.stageCaption} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Facts -->
+  <section class:list={[wrap, "py-6"]} aria-label={t.factsLabel}>
+    <ul data-rv class="m-0 flex list-none flex-wrap items-center justify-between gap-x-8 gap-y-4 border-y border-line px-0 py-6">
+      {
+        t.facts.map((fact, i) => (
+          <li class="flex items-center gap-3 text-[15px] text-ink-soft">
+            <span class="orb size-3 animate-breathe" style={`animation-delay:${i * 0.3}s`} aria-hidden="true" />
+            {fact}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- The idea -->
+  <section class="py-20 sm:py-28">
+    <div class:list={[wrap, "grid items-center gap-14 nav:grid-cols-2"]}>
+      <div class="flex flex-col gap-5">
+        <p data-rv="l" class:list={[eye, "text-partner"]}>{t.idea.eye}</p>
+        <h2 data-rv="l" class={h2} style="--d:.08s">{t.idea.titleA} <span class="mark">{t.idea.titleMark}</span></h2>
+        <p data-rv="l" class={lead} style="--d:.16s">{t.idea.lead}</p>
+        <ul data-rv="l" class="m-0 mt-2 flex list-none flex-col gap-3.5 p-0" style="--d:.24s">
+          {
+            t.idea.points.map((point, i) => (
+              <li class="group flex items-center gap-3.5 font-medium transition-[translate] duration-400 ease-out-expo hover:translate-x-1.5">
+                <span class="grid size-10 shrink-0 place-items-center rounded-lg bg-surface shadow-card transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6">
+                  <span class:list={["size-2.5 rounded-full", ["bg-partner", "bg-you", "bg-book"][i]]} />
+                </span>
+                {point}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div data-rv="r" class="card grid min-h-[420px] place-items-center bg-dots" style="--d:.12s">
+        <div class="relative grid size-[280px] place-items-center">
+          <span class="absolute inset-0 animate-ring rounded-full bg-(--glow-a)" aria-hidden="true"></span>
+          <span class="absolute -inset-6 animate-spin-slow rounded-full border border-dashed border-line-strong" aria-hidden="true"></span>
+          <span class="orb absolute inset-0 animate-spin-slow shadow-glow" aria-hidden="true"></span>
+          <div class="relative flex size-[200px] flex-col items-center justify-center rounded-full bg-surface shadow-card">
+            <span class="text-[84px] leading-none font-light tracking-[-0.05em]">0</span>
+            <span class="max-w-[150px] text-center text-[13px] text-ink-soft">{t.idea.zero}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversation -->
+  <section id="conversation" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div class="mb-14 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-partner"]}>{t.talk.eye}</p>
+        <h2 data-rv class={h2} style="--d:.08s">{t.talk.title}</h2>
+        <p data-rv class={lead} style="--d:.16s">{t.talk.lead}</p>
+      </div>
+      <div class="grid gap-5 nav:grid-cols-12">
+        <article data-rv class="card card-lift p-7 nav:col-span-7">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.talk.tiles[0].title}</h3>
+          <p class="mt-1.5 text-ink-soft">{t.talk.tiles[0].body}</p>
+          <div class="mt-5 flex min-h-[190px] flex-wrap items-center gap-4 rounded-lg bg-canvas bg-dots p-5">
+            <span class="relative size-14 shrink-0" aria-hidden="true">
+              <span class="absolute inset-0 animate-ring rounded-full bg-you [animation-duration:1.8s]"></span>
+              <span class="absolute inset-0 grid place-items-center rounded-full bg-you text-canvas">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg>
+              </span>
+            </span>
+            <span class="flex h-11 items-center gap-1" aria-hidden="true">
+              {bars.map((bar) => <span class="h-11 w-1 rounded-sm bg-you" style={`animation:bar ${bar.time}s ease-in-out ${bar.delay}s infinite`} />)}
+            </span>
+            <p class="min-w-[220px] flex-1 rounded-lg bg-surface px-3.5 py-3 text-[14px] shadow-card">
+              <span class="text-[12px] font-semibold text-you">{t.talk.heard}</span><br />
+              <span lang="en">I <s class="text-ink-faint">finish</s> finished the report one day early</span><span class="ml-0.5 inline-block h-4 w-0.5 translate-y-0.5 bg-you [animation:caret_1s_steps(2,start)_infinite]" aria-hidden="true"></span>
+            </p>
+          </div>
+        </article>
+        <article data-rv class="card card-lift p-7 nav:col-span-5" style="--d:.1s">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.talk.tiles[1].title}</h3>
+          <p class="mt-1.5 text-ink-soft">{t.talk.tiles[1].body}</p>
+          <div class="mt-5 flex min-h-[190px] flex-col justify-center gap-2.5 rounded-lg bg-canvas bg-dots p-5 text-[14px]" aria-hidden="true">
+            <span class="rounded-lg bg-surface px-3.5 py-2.5 text-ink-soft shadow-card">{t.talk.ask}</span>
+            {["I'm swamped", "I'm overwhelmed", "I have a lot on my plate"].map((option, i) => <span lang="en" class="rounded-lg bg-surface px-3.5 py-2.5 shadow-card" style={`animation:option 6s var(--ease-out-expo) ${i * 0.25}s infinite`}>{option}</span>)}
+          </div>
+        </article>
+        <article data-rv class="card card-lift p-7 nav:col-span-5">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.talk.tiles[2].title}</h3>
+          <p class="mt-1.5 text-ink-soft">{t.talk.tiles[2].body}</p>
+          <div class="mt-5 flex min-h-[150px] flex-col justify-center rounded-lg bg-canvas bg-dots p-5" aria-hidden="true">
+            <div class="flex flex-col gap-2.5 rounded-lg bg-surface px-3.5 py-3 text-[14px] shadow-card">
+              <span class="h-1.5 overflow-hidden rounded-full bg-raised"><span class="block h-full origin-left rounded-full bg-you [animation:fill-meter_7s_var(--ease-out-expo)_infinite]"></span></span>
+              <span class="text-ink-soft">{t.talk.goal}</span>
+            </div>
+          </div>
+        </article>
+        <article data-rv class="card card-lift p-7 nav:col-span-7" style="--d:.1s">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.talk.tiles[3].title}</h3>
+          <p class="mt-1.5 text-ink-soft">{t.talk.tiles[3].body}</p>
+          <div class="mt-5 flex min-h-[150px] flex-wrap items-stretch gap-3.5 rounded-lg bg-canvas bg-dots p-5 text-[14px]">
+            <p class="min-w-[200px] flex-1 rounded-lg bg-surface px-3.5 py-3 shadow-card">
+              <span class="text-[12px] text-ink-faint">{t.talk.said}</span><br />
+              <span lang="en">I <span class="relative whitespace-nowrap">have finished<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" class="absolute inset-x-0 -bottom-1 h-2 w-full"><path d="M2 6 Q 25 1 50 6 T 98 5" fill="none" stroke="var(--tally)" stroke-width="2.5" stroke-linecap="round" style="--len:110;stroke-dasharray:110;animation:draw 5s var(--ease-out-expo) infinite"></path></svg></span> the report yesterday.</span>
+            </p>
+            <p class="min-w-[200px] flex-1 rounded-lg bg-surface px-3.5 py-3 shadow-card">
+              <span class="text-[12px] text-ink-faint">{t.talk.better}</span><br />
+              <span lang="en" class="font-semibold text-you">I finished the report yesterday.</span>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Books -->
+  <section id="books" class="far relative overflow-x-clip py-20 sm:py-28">
+    <div class="halo top-[260px] left-1/2 -ml-[340px] size-[680px] bg-(--glow-c)" aria-hidden="true"></div>
+    <div class={wrap}>
+      <div class="mb-14 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-book"]}>{t.books.eye}</p>
+        <h2 data-rv class={h2} style="--d:.08s">{t.books.titleA} <span class="mark">{t.books.titleMark}</span>{t.books.titleB}</h2>
+        <p data-rv class={lead} style="--d:.16s">{t.books.lead}</p>
+      </div>
+      <div data-rv="z" class="mx-auto max-w-[1040px]">
+        <Stage t={t} scene="book" label={t.books.stageLabel} caption={t.books.stageCaption} book />
+      </div>
+      <ol class="m-0 mt-16 grid list-none gap-5 p-0 sm:grid-cols-2 nav:grid-cols-4">
+        {
+          t.books.steps.map((step, i) => (
+            <li data-rv class="card card-lift group p-7" style={`--d:${i * 0.08}s`}>
+              <span class="grid size-11 place-items-center rounded-full bg-book-soft text-[16px] font-bold text-book transition-transform duration-500 ease-out-expo group-hover:scale-110">{i + 1}</span>
+              <h3 class="mt-5 text-[20px] font-bold tracking-[-0.02em]">{step.title}</h3>
+              <p class="mt-1.5 text-[16px] text-ink-soft">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="mt-5 grid items-center gap-5 nav:grid-cols-2">
+        <figure data-rv="l" class="card m-0 p-8">
+          <blockquote class="m-0 font-serif text-[22px] leading-[1.65] text-book-ink italic" lang="en">
+            Once or twice she had <span class="learned" data-help tabindex="0">peeped<span lang={t.lang}>{t.books.gloss[0]}</span></span> into the book her sister was reading, and <span class="learned" data-help tabindex="0">burning with curiosity<span lang={t.lang}>{t.books.gloss[1]}</span></span>, she ran across the field after it.
+          </blockquote>
+          <figcaption class="mt-4 text-[13px] text-ink-faint">Lewis Carroll, <cite>Alice’s Adventures in Wonderland</cite></figcaption>
+        </figure>
+        <div data-rv="r" class="flex flex-col gap-3 nav:pl-8">
+          <h3 class="text-[26px] font-bold tracking-[-0.02em]">{t.books.readTitle}</h3>
+          <p class="text-ink-soft">{t.books.readBody}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily review -->
+  <section id="review" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div data-rv="z" class="card grid items-center gap-12 overflow-hidden p-7 sm:p-14 nav:grid-cols-2">
+        <span class="halo -top-[120px] -right-[80px] size-[420px] bg-(--glow-a)" aria-hidden="true"></span>
+        <div class="relative flex flex-col items-start gap-5">
+          <p class:list={[eye, "text-tally"]}>{t.review.eye}</p>
+          <h2 class={h2}>{t.review.titleA} <span class="mark">{t.review.titleMark}</span></h2>
+          <p class={lead}>{t.review.lead}</p>
+          <div class="flex max-w-[480px] flex-col gap-2.5 rounded-lg bg-canvas p-4 text-[14px]">
+            <p><span class="text-[12px] font-semibold text-partner">{t.review.partner}</span><br /><span lang="en">Have you ever <span class="border-b-2 border-dotted border-partner">peeped</span> at someone's phone on the train?</span></p>
+            <p lang="en" class="self-end rounded-lg bg-you-soft px-3 py-2 text-you-ink">Maybe once… I was <strong class="font-semibold">burning with curiosity</strong>.</p>
+            <p class="text-[13px] text-ink-soft">{t.review.chatNote}</p>
+          </div>
+        </div>
+        <ol class="relative m-0 flex list-none flex-wrap items-end justify-center gap-3 p-0 sm:flex-nowrap sm:gap-4" aria-label={t.review.daysLabel}>
+          {
+            t.review.days.map((day, i) => (
+              <li class="flex flex-col items-center gap-2.5">
+                <span class="orb grid place-items-center font-bold text-on-cta shadow-glow transition-[scale] duration-500 ease-out-expo hover:scale-110" style={`width:${days[i]}px;height:${days[i]}px;font-size:${Math.round((days[i] ?? 56) * 0.3)}px;animation:float ${4 + i * 0.6}s ease-in-out infinite`}>
+                  {day.n}
+                </span>
+                <span class="text-[13px] text-ink-soft">{day.label}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Memory -->
+  <section id="memory" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div class="mb-14 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-learned"]}>{t.memory.eye}</p>
+        <h2 data-rv class:list={[h2, "max-w-[900px]"]} style="--d:.08s">{t.memory.title}</h2>
+        <p data-rv class={lead} style="--d:.16s">{t.memory.lead}</p>
+      </div>
+      <div data-rv data-memory data-step="0" class="memory card p-7 sm:p-10">
+        <div class="mb-9 flex flex-wrap items-baseline justify-between gap-3">
+          <span class="text-[20px] font-semibold" lang="en">present perfect vs past simple</span>
+          <span class="text-[15px] text-ink-soft">{t.memory.patternNote}</span>
+        </div>
+        <ol class="relative m-0 grid list-none grid-cols-2 gap-x-2 gap-y-8 p-0 sm:grid-cols-4">
+          <span class="memory-track absolute top-[9px] right-[12.5%] left-[12.5%] hidden h-0.5 bg-line sm:block" aria-hidden="true"><span></span></span>
+          {
+            t.memory.states.map((state) => (
+              <li class="memory-state relative flex flex-col items-center gap-2 text-center">
+                <i aria-hidden="true" />
+                <strong class="font-semibold">{state.name}</strong>
+                <span class="text-[13px] text-ink-faint">{state.rule}</span>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="memory-relapse mt-8 text-center text-[14px] font-medium text-partial">{t.memory.relapse}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compared with a chat -->
+  <section id="compare" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div class="mb-12 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-you"]}>{t.compare.eye}</p>
+        <h2 data-rv class:list={[h2, "max-w-[920px]"]} style="--d:.08s">{t.compare.title}</h2>
+        <p data-rv class={lead} style="--d:.16s">{t.compare.lead}</p>
+      </div>
+      <div data-rv class="card overflow-x-auto p-2 sm:p-4">
+        <table class="w-full min-w-[640px] border-collapse text-left text-[16px]">
+          <thead>
+            <tr>
+              <td class="w-[24%] p-4"></td>
+              <th scope="col" class="w-[38%] p-4 text-[14px] font-semibold text-ink-soft">{t.compare.head[1]}</th>
+              <th scope="col" class="w-[38%] rounded-t-lg bg-partner-soft p-4 text-[14px] font-semibold text-partner">{t.compare.head[2]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              t.compare.rows.map((row, i) => (
+                <tr class="group border-t border-line transition-colors duration-300 hover:bg-canvas">
+                  <th scope="row" class="p-4 align-top text-[15px] font-semibold">{row[0]}</th>
+                  <td class="p-4 align-top text-ink-soft">{row[1]}</td>
+                  <td class:list={["bg-partner-soft p-4 align-top font-medium", i === t.compare.rows.length - 1 && "rounded-b-lg"]}>{row[2]}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Claude -->
+  <section id="claude" class="far relative overflow-x-clip py-20 sm:py-28">
+    <div class={wrap}>
+      <div class="grid items-start gap-12 nav:grid-cols-[5fr_7fr]">
+        <div class="flex flex-col items-start gap-5 nav:sticky nav:top-28">
+          <p data-rv="l" class:list={[eye, "inline-flex items-center gap-2 text-claude"]}><ClaudeMark size={18} />{t.claude.eye}</p>
+          <h2 data-rv="l" class={h2} style="--d:.08s">{t.claude.title}</h2>
+          <p data-rv="l" class={lead} style="--d:.16s">{t.claude.lead}</p>
+          <div data-rv="l" class="flex items-center gap-4 rounded-xl bg-claude-soft py-3 pr-5 pl-3" style="--d:.24s">
+            <span class="grid size-12 place-items-center rounded-lg bg-surface text-claude shadow-card"><ClaudeMark size={28} class="animate-breathe" /></span>
+            <span class="text-[15px] font-medium">{t.claude.badge}</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-5">
+          {
+            t.claude.ways.map((way, i) => (
+              <article data-rv="r" class="card card-lift p-7" style={`--d:${i * 0.1}s`}>
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-[21px] font-bold tracking-[-0.02em]">{way.title}</h3>
+                  <span class:list={["rounded-sm px-2 py-0.5 text-[12px] font-semibold", i === 0 ? "bg-you-soft text-you" : "bg-raised text-ink-soft"]}>{way.tag}</span>
+                </div>
+                <p class="mt-2 text-ink-soft">{way.body}</p>
+              </article>
+            ))
+          }
+          <div data-rv="r" class="grid gap-5 sm:grid-cols-2" style="--d:.2s">
+            {
+              t.claude.notes.map((note) => (
+                <div class="rounded-xl border border-line p-6">
+                  <h3 class="text-[16px] font-semibold">{note.title}</h3>
+                  <p class="mt-1.5 text-[15px] text-ink-soft">{note.body}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Yours -->
+  <section class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div class="mb-14 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-you"]}>{t.yours.eye}</p>
+        <h2 data-rv class={h2} style="--d:.08s">{t.yours.title}</h2>
+      </div>
+      <ul class="m-0 grid list-none gap-5 p-0 sm:grid-cols-2 nav:grid-cols-4">
+        {
+          t.yours.items.map((item, i) => (
+            <li data-rv class="card card-lift flex flex-col items-center gap-1.5 p-7 text-center" style={`--d:${i * 0.08}s`}>
+              <span class="orb mb-3 size-11 animate-breathe" style={`animation-duration:${3 + i * 0.4}s`} aria-hidden="true" />
+              <h3 class="text-[19px] font-bold tracking-[-0.02em]">{item.title}</h3>
+              <p class="text-[15px] text-ink-soft">{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div class="mb-14 flex flex-col items-center gap-4 text-center">
+        <p data-rv class:list={[eye, "text-partner"]}>{t.install.eye}</p>
+        <h2 data-rv class={h2} style="--d:.08s">{t.install.title}</h2>
+        <p data-rv class={lead} style="--d:.16s">{t.install.lead}</p>
+      </div>
+      <div class="grid gap-5 nav:grid-cols-2">
+        <article data-rv="l" class="card flex flex-col gap-4 p-7">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.install.mac.title}</h3>
+          <p class="text-ink-soft">{t.install.mac.body}</p>
+          <div class="relative mt-auto rounded-lg bg-canvas p-4 pr-24 font-mono text-[13px] leading-[1.7]">
+            <code class="block overflow-x-auto whitespace-pre">brew tap ilien-dev/ogmios https://github.com/ilien-dev/ogmios
+brew install --cask ogmios</code>
+            <button type="button" data-copy="brew tap ilien-dev/ogmios https://github.com/ilien-dev/ogmios && brew install --cask ogmios" class="group absolute top-3 right-3 min-h-9 rounded-md bg-surface px-3 font-sans text-[13px] font-semibold shadow-card transition-[translate,box-shadow] duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift">
+              <span class="group-data-done:hidden">{t.install.copy}</span><span class="hidden text-correct group-data-done:inline">{t.install.copied}</span>
+            </button>
+          </div>
+        </article>
+        <article data-rv="r" class="card flex flex-col gap-4 p-7">
+          <h3 class="text-[21px] font-bold tracking-[-0.02em]">{t.install.win.title}</h3>
+          <p class="text-ink-soft">{t.install.win.body}</p>
+          <a class="btn btn-cta mt-auto self-start" href={LINKS.windows}>{t.install.win.action} <span class="arrow arrow-down" aria-hidden="true">↓</span></a>
+        </article>
+      </div>
+      <p data-rv class="mt-6 text-center text-[14px] text-ink-faint">{t.install.after}</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="far py-16 sm:py-20">
+    <div class="mx-auto max-w-[900px] px-4 sm:px-8">
+      <h2 data-rv class:list={[h2, "mb-11 text-center"]}>{t.faq.title}</h2>
+      <div class="flex flex-col gap-3">
+        {
+          t.faq.items.map((item, i) => (
+            <details data-rv class="faq card group" open={i === 0} style={`--d:${Math.min(i, 5) * 0.05}s`}>
+              <summary class="flex list-none items-center justify-between gap-5 px-6 py-5 text-[18px] font-semibold tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-ink text-canvas transition-[rotate,scale] duration-500 ease-out-expo group-open:rotate-180 group-hover:scale-110" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+                </span>
+              </summary>
+              <p class="max-w-[760px] px-6 pb-6 text-ink-soft">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section id="download" class="far py-16 sm:py-20">
+    <div class={wrap}>
+      <div data-rv="z" class="card flex flex-col items-center gap-6 overflow-hidden bg-dots px-6 py-20 text-center sm:px-10 sm:py-24">
+        <span class="halo -top-[200px] left-1/2 -ml-[260px] size-[520px] bg-(--glow-a)" aria-hidden="true"></span>
+        <span class="orb relative size-[110px] animate-breathe shadow-glow" aria-hidden="true"></span>
+        <h2 class="relative max-w-[820px] text-[2.4rem] leading-[1.05] font-bold tracking-[-0.035em] sm:text-[3.75rem]">{t.cta.title}</h2>
+        <p class:list={[lead, "relative"]}>{t.cta.lead}</p>
+        <div class="relative flex flex-wrap justify-center gap-3">
+          <a class="btn btn-cta" href="#install">{t.cta.mac} <span class="arrow arrow-down" aria-hidden="true">↓</span></a>
+          <a class="btn btn-cta" href={LINKS.windows}>{t.cta.win} <span class="arrow arrow-down" aria-hidden="true">↓</span></a>
+          <a class="btn btn-plain" href={LINKS.repo}>{t.cta.github}</a>
+        </div>
+        <p class="relative text-[13px] text-ink-faint">{t.cta.version} {demoInfo.version} · {t.cta.note}</p>
+      </div>
+    </div>
+  </section>
+</Base>

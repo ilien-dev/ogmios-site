@@ -1,0 +1,43 @@
+---
+import Mark from "./Mark.astro";
+import { LINKS, type Strings } from "../i18n/strings";
+interface Props {
+  t: Strings;
+}
+const { t } = Astro.props;
+const link = "inline-block text-[15px] text-ink-soft no-underline transition-[color,translate] duration-300 ease-out-expo hover:translate-x-1 hover:text-ink";
+---
+
+<footer class="relative overflow-hidden">
+  <div class="mx-auto max-w-[1240px] px-4 sm:px-8">
+    <div class="grid gap-10 border-t border-line py-12 sm:grid-cols-2 nav:grid-cols-[2fr_1fr_1fr_1fr]">
+      <div data-rv>
+        <div class="flex items-center gap-2.5"><Mark size={26} /><span class="text-[18px] font-bold">Ogmios</span></div>
+        <p class="mt-3 max-w-[320px] text-[15px] text-ink-soft">{t.footer.tagline}</p>
+      </div>
+      <nav data-rv style="--d:.08s" aria-label={t.footer.product} class="flex flex-col items-start gap-2.5">
+        <span class="text-[14px] font-semibold">{t.footer.product}</span>
+        <a class={link} href="#conversation">{t.nav.talk}</a>
+        <a class={link} href="#books">{t.nav.books}</a>
+        <a class={link} href="#review">{t.nav.review}</a>
+        <a class={link} href="#memory">{t.nav.memory}</a>
+      </nav>
+      <nav data-rv style="--d:.16s" aria-label={t.footer.project} class="flex flex-col items-start gap-2.5">
+        <span class="text-[14px] font-semibold">{t.footer.project}</span>
+        <a class={link} href={LINKS.repo}>{t.footer.source}</a>
+        <a class={link} href={LINKS.releasesAll}>{t.footer.releases}</a>
+        <a class={link} href={LINKS.license}>{t.footer.license}</a>
+        <a class={link} href={LINKS.issues}>{t.footer.issues}</a>
+      </nav>
+      <nav data-rv style="--d:.24s" aria-label={t.footer.help} class="flex flex-col items-start gap-2.5">
+        <span class="text-[14px] font-semibold">{t.footer.help}</span>
+        <a class={link} href="#install">{t.footer.install}</a>
+        <a class={link} href="#claude">{t.nav.claude}</a>
+        <a class={link} href="#faq">{t.nav.faq}</a>
+        <a class={link} href={t.langSwitch.otherHref} hreflang={t.lang === "en" ? "es" : "en"} lang={t.lang === "en" ? "es" : "en"}>{t.langSwitch.otherLong}</a>
+      </nav>
+    </div>
+    <p data-rv class="max-w-[90ch] pb-6 text-[13px] text-ink-faint">{t.footer.legal}</p>
+    <p data-rv aria-hidden="true" class="-mb-[0.2em] text-center text-[clamp(5.5rem,22vw,20rem)] leading-[0.9] font-extrabold tracking-[-0.06em] whitespace-nowrap text-line select-none">Ogmios</p>
+  </div>
+</footer>
