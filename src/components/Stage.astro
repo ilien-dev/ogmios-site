@@ -12,6 +12,8 @@ interface Props {
   book?: boolean;
 }
 const { t, scene, label, caption, book = false } = Astro.props;
+// What the window shows to who runs no scripts: a real capture of the same scene.
+const shot = scene === "book" ? "book" : "conversation";
 ---
 
 <figure data-stage data-scene={scene} data-lang={t.lang} class="m-0">
@@ -37,6 +39,7 @@ const { t, scene, label, caption, book = false } = Astro.props;
           <path d="M9 4h2.2a.8.8 0 0 1 .8.8v14.4a.8.8 0 0 1-.8.8H9M15 4h-2.2a.8.8 0 0 0-.8.8v14.4a.8.8 0 0 0 .8.8H15" stroke="#23233a" stroke-width="1.5"></path>
         </svg>
       </div>
+      <noscript><img src={`/screens/${shot}.png`} alt={label} width="1280" height="800" loading="lazy" class="absolute inset-0 size-full object-cover object-top" /></noscript>
       <div class="stage-veil">
         <span class:list={["size-16 animate-breathe", book ? "orb-book" : "orb"]} aria-hidden="true"></span>
         <span data-loading class="text-[15px] text-ink-soft">{t.stage.loading}</span>

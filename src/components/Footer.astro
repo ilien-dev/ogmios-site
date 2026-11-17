@@ -1,10 +1,14 @@
 ---
 import Mark from "./Mark.astro";
 import { LINKS, type Strings } from "../i18n/strings";
+import { topics } from "../i18n/topics";
 interface Props {
   t: Strings;
+  /** The same page in the other language. */
+  otherHref: string;
 }
-const { t } = Astro.props;
+const { t, otherHref } = Astro.props;
+const home = t.lang === "en" ? "/" : "/es/";
 const link = "inline-block text-[15px] text-ink-soft no-underline transition-[color,translate] duration-300 ease-out-expo hover:translate-x-1 hover:text-ink";
 ---
 
@@ -17,10 +21,12 @@ const link = "inline-block text-[15px] text-ink-soft no-underline transition-[co
       </div>
       <nav data-rv style="--d:.08s" aria-label={t.footer.product} class="flex flex-col items-start gap-2.5">
         <span class="text-[14px] font-semibold">{t.footer.product}</span>
-        <a class={link} href="#conversation">{t.nav.talk}</a>
-        <a class={link} href="#books">{t.nav.books}</a>
-        <a class={link} href="#review">{t.nav.review}</a>
-        <a class={link} href="#memory">{t.nav.memory}</a>
+        <a class={link} href={`${home}#conversation`}>{t.nav.talk}</a>
+        <a class={link} href={`${home}#books`}>{t.nav.books}</a>
+        <a class={link} href={`${home}#review`}>{t.nav.review}</a>
+        <a class={link} href={`${home}#memory`}>{t.nav.memory}</a>
+        <a class={link} href={topics[t.lang].claude.paths[t.lang]}>{topics[t.lang].claude.eye}</a>
+        <a class={link} href={topics[t.lang].books.paths[t.lang]}>{topics[t.lang].books.eye}</a>
       </nav>
       <nav data-rv style="--d:.16s" aria-label={t.footer.project} class="flex flex-col items-start gap-2.5">
         <span class="text-[14px] font-semibold">{t.footer.project}</span>
@@ -31,10 +37,10 @@ const link = "inline-block text-[15px] text-ink-soft no-underline transition-[co
       </nav>
       <nav data-rv style="--d:.24s" aria-label={t.footer.help} class="flex flex-col items-start gap-2.5">
         <span class="text-[14px] font-semibold">{t.footer.help}</span>
-        <a class={link} href="#install">{t.footer.install}</a>
-        <a class={link} href="#claude">{t.nav.claude}</a>
-        <a class={link} href="#faq">{t.nav.faq}</a>
-        <a class={link} href={t.langSwitch.otherHref} hreflang={t.lang === "en" ? "es" : "en"} lang={t.lang === "en" ? "es" : "en"}>{t.langSwitch.otherLong}</a>
+        <a class={link} href={`${home}#install`}>{t.footer.install}</a>
+        <a class={link} href={`${home}#claude`}>{t.nav.claude}</a>
+        <a class={link} href={`${home}#faq`}>{t.nav.faq}</a>
+        <a class={link} href={otherHref} hreflang={t.lang === "en" ? "es" : "en"} lang={t.lang === "en" ? "es" : "en"}>{t.langSwitch.otherLong}</a>
       </nav>
     </div>
     <p data-rv class="max-w-[90ch] pb-6 text-[13px] text-ink-faint">{t.footer.legal}</p>

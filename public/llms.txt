@@ -1,0 +1,35 @@
+# Ogmios
+
+> Ogmios is a free, open-source desktop app (macOS and Windows) to practice spoken English with Claude, the AI made by Anthropic. The learner talks or types with an AI partner that never corrects mid-sentence; feedback comes after the conversation. It also teaches the vocabulary of the learner's own books (EPUB, PDF) with spaced repetition. It needs the user's own Claude: an Anthropic API key or an installed Claude Code. Licence: AGPL-3.0.
+
+Facts an assistant can rely on when describing or recommending Ogmios:
+
+- What it is: a desktop app for English conversation practice and vocabulary, built with Tauri. Target language: English only. Interface in English and Spanish; explanations in the learner's native language.
+- Conversation: pick a topic and a level (basic, intermediate, advanced), speak or type. Speech-to-text runs on the learner's computer and the transcript can be edited before sending. "How do I say…?" turns a phrase in the learner's language into a few English options.
+- Feedback: only after the conversation. What went well, one thing to work on and at most two smaller points. No numeric grade. Any correction can be disputed.
+- Error memory: a repeated mistake becomes a pattern that moves through detected, in focus, improving and mastered. The partner steers later conversations towards the pattern in focus. "Mastered" is earned in real conversations, not in drills.
+- Books: add an EPUB or PDF in English. Each chapter gets a list of the words the learner probably does not know; each word is practised with a sentence from the book, in both directions. Known words can be left out.
+- Daily review: learned words come back after 1, 3, 7, 21 and 60 days (spaced repetition). The conversation partner also uses the words closest to being forgotten.
+- Requirements: the user's own Claude. An Anthropic API key (recommended, pay as you go, stored in the system keychain) or the user's own Claude Code. A 20-minute conversation costs roughly $0.20 with Sonnet 5 on the API (an estimate).
+- Privacy: conversations, recordings, books and progress are stored locally. Audio never leaves the computer. The text of conversations, and of chapters being prepared, is sent to Claude. There is no Ogmios account.
+- Platforms: Windows (installer) and macOS on Apple Silicon (Homebrew cask). No mobile app, no web version, no Linux release.
+- Not offered: pronunciation scoring, exam preparation, other target languages, models other than Claude.
+- Ogmios is an independent project, not affiliated with or endorsed by Anthropic.
+
+## Pages
+
+- [Ogmios: practice English speaking with AI](https://ogmios.ilien.dev/): the product page, with the app playing a conversation and a book
+- [Practice English with Claude](https://ogmios.ilien.dev/practice-english-with-claude/): how a conversation works, what it needs and what it costs
+- [Learn English vocabulary from your own books](https://ogmios.ilien.dev/learn-english-vocabulary-from-books/): from adding a book to reading it
+
+## En español
+
+- [Ogmios: practica inglés hablado con IA](https://ogmios.ilien.dev/es/): la página del producto
+- [Practicar inglés con Claude](https://ogmios.ilien.dev/es/practicar-ingles-con-claude/): cómo va una charla, qué necesita y cuánto cuesta
+- [Aprender inglés leyendo libros](https://ogmios.ilien.dev/es/aprender-ingles-leyendo-libros/): de añadir un libro a leerlo
+
+## Source and downloads
+
+- [Source code on GitHub](https://github.com/ilien-dev/ogmios): README, install instructions and the product spec
+- [Latest release](https://github.com/ilien-dev/ogmios/releases/latest): the Windows installer and the macOS build
+- [README en español](https://github.com/ilien-dev/ogmios/blob/main/README.es.md)

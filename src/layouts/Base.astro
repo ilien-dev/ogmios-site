@@ -4,11 +4,27 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { LINKS, type Strings } from "../i18n/strings";
 import demoInfo from "../../public/demo/version.json";
+/** A page other than the home: its own words for search engines, and where it lives. */
+export interface PageMeta {
+  title: string;
+  description: string;
+  /** The path of the page in each language, for the canonical and hreflang links. */
+  en: string;
+  es: string;
+  faq?: { q: string; a: string }[];
+  /** More structured data of the page, as schema.org objects. */
+  ld?: object[];
+}
 interface Props {
   t: Strings;
+  page?: PageMeta;
 }
-const { t } = Astro.props;
-const canonical = new URL(t.lang === "en" ? "/" : "/es/", Astro.site);
+const { t, page } = Astro.props;
+const paths = { en: page?.en ?? "/", es: page?.es ?? "/es/" };
+const title = page?.title ?? t.title;
+const description = page?.description ?? t.description;
+const questions = page?.faq ?? t.faq.items;
+const canonical = new URL(paths[t.lang], Astro.site);
 const ogImage = new URL(`/og-${t.lang}.png`, Astro.site);
 // What search engines read about the app. Only facts the README backs: no ratings.
 const appLd = {
@@ -17,7 +33,7 @@ const appLd = {
   name: "Ogmios",
   alternateName: t.seo.alternateName,
   description: t.description,
-  url: canonical.href,
+  url: new URL(t.lang === "en" ? "/" : "/es/", Astro.site).href,
   inLanguage: t.htmlLang,
   applicationCategory: "EducationalApplication",
   applicationSubCategory: t.seo.subCategory,
@@ -31,6 +47,7 @@ const appLd = {
   featureList: t.seo.features,
   keywords: t.seo.keywords.join(", "),
   image: ogImage.href,
+  screenshot: ["conversation", "feedback", "book", "practice"].map((name) => new URL(`/screens/${name}.png`, Astro.site).href),
   codeRepository: LINKS.repo,
   sameAs: [LINKS.repo],
   author: { "@type": "Organization", name: "ilien", url: "https://github.com/ilien-dev" },
@@ -40,7 +57,7 @@ const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   inLanguage: t.htmlLang,
-  mainEntity: t.faq.items.map((item) => ({
+  mainEntity: questions.map((item) => ({
     "@type": "Question",
     name: item.q,
     acceptedAnswer: { "@type": "Answer", text: item.a },
@@ -60,20 +77,22 @@ const siteLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{t.title}</title>
-    <meta name="description" content={t.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={new URL("/", Astro.site)} />
-    <link rel="alternate" hreflang="es" href={new URL("/es/", Astro.site)} />
-    <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(paths.en, Astro.site)} />
+    <link rel="alternate" hreflang="es" href={new URL(paths.es, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(paths.en, Astro.site)} />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="Ogmios, for AI agents" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0e0f1a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content={t.title} />
-    <meta property="og:description" content={t.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Ogmios" />
@@ -84,8 +103,8 @@ const siteLd = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={t.seo.ogAlt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={t.title} />
-    <meta name="twitter:description" content={t.description} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <script is:inline>
       // Before the first paint: the theme the visitor chose, or the system's, and the
@@ -104,14 +123,15 @@ const siteLd = {
     <script type="application/ld+json" set:html={JSON.stringify(appLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+    {(page?.ld ?? []).map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   </head>
   <body class="min-h-screen antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2 focus:shadow-card">{t.skip}</a>
-    <Header t={t} />
+    <Header t={t} otherHref={paths[t.lang === "en" ? "es" : "en"]} />
     <main id="main">
       <slot />
     </main>
-    <Footer t={t} />
+    <Footer t={t} otherHref={paths[t.lang === "en" ? "es" : "en"]} />
     <div data-cursor class="pointer-events-none fixed top-0 left-0 z-50 hidden" aria-hidden="true"><i></i></div>
     <script>
       import "../scripts/page";

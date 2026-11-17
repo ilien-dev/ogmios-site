@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import { en as t } from "../i18n/strings";
+---
+
+<Base t={t} page={{ title: "Page not found | Ogmios", description: "This page does not exist. Ogmios is a free desktop app to practice English speaking with Claude.", en: "/", es: "/es/" }}>
+  <section class="mx-auto flex min-h-[70vh] max-w-[720px] flex-col items-center justify-center gap-6 px-4 py-24 text-center">
+    <span class="orb size-24 animate-breathe shadow-glow" aria-hidden="true"></span>
+    <h1 class="animate-rise text-[2.6rem] leading-[1.05] font-bold tracking-[-0.035em] sm:text-[4rem]">This page is not here</h1>
+    <p class="text-[18px] text-ink-soft" lang="es">Esta página no existe.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a class="btn btn-cta" href="/">Ogmios in English <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn-plain" href="/es/" lang="es" hreflang="es">Ogmios en español</a>
+    </div>
+  </section>
+</Base>

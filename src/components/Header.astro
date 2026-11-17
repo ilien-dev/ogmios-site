@@ -3,8 +3,10 @@ import Mark from "./Mark.astro";
 import type { Strings } from "../i18n/strings";
 interface Props {
   t: Strings;
+  /** The same page in the other language. */
+  otherHref: string;
 }
-const { t } = Astro.props;
+const { t, otherHref } = Astro.props;
 const home = t.lang === "en" ? "/" : "/es/";
 const other = t.lang === "en" ? "es" : "en";
 ---
@@ -16,15 +18,15 @@ const other = t.lang === "en" ? "es" : "en";
       <span class="text-[19px] font-bold tracking-[-0.02em]">Ogmios</span>
     </a>
     <nav aria-label={t.nav.label} class="mx-auto hidden items-center gap-7 nav:flex">
-      <a class="nav-link" href="#conversation">{t.nav.talk}</a>
-      <a class="nav-link" href="#books">{t.nav.books}</a>
-      <a class="nav-link" href="#review">{t.nav.review}</a>
-      <a class="nav-link" href="#claude">{t.nav.claude}</a>
-      <a class="nav-link" href="#faq">{t.nav.faq}</a>
+      <a class="nav-link" href={`${home}#conversation`}>{t.nav.talk}</a>
+      <a class="nav-link" href={`${home}#books`}>{t.nav.books}</a>
+      <a class="nav-link" href={`${home}#review`}>{t.nav.review}</a>
+      <a class="nav-link" href={`${home}#claude`}>{t.nav.claude}</a>
+      <a class="nav-link" href={`${home}#faq`}>{t.nav.faq}</a>
     </nav>
     <a
       class="ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2.5 text-[14px] font-semibold text-ink-soft no-underline transition-colors duration-300 hover:bg-raised hover:text-ink nav:ml-0"
-      href={t.langSwitch.otherHref}
+      href={otherHref}
       hreflang={other}
       lang={other}
       title={t.langSwitch.label}
@@ -49,7 +51,7 @@ const other = t.lang === "en" ? "es" : "en";
         <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path>
       </svg>
     </button>
-    <a class="btn btn-cta min-h-11! px-4! text-[14px]!" href="#install">{t.download}</a>
+    <a class="btn btn-cta min-h-11! px-4! text-[14px]!" href={`${home}#install`}>{t.download}</a>
   </div>
   <div class="scroll-bar absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0" aria-hidden="true"></div>
 </header>

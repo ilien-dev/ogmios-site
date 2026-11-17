@@ -3,7 +3,8 @@
   "name": "ogmios",
   "compatibility_date": "2026-11-01",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "not_found_handling": "404-page"
   },
   "routes": [{ "pattern": "ogmios.ilien.dev", "custom_domain": true }],
   "workers_dev": false,
