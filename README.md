@@ -50,6 +50,24 @@ bun run lighthouse              # both pages, phone and desktop
 Reports go to `.lighthouse/`. If Chrome is not installed where Lighthouse looks, give
 its path in `CHROME_PATH`.
 
+## Unlighthouse
+
+```sh
+bun run audit                   # every page of the deployed site, three samples each
+```
+
+It reads the sitemap, scans each page as a phone and fails under the budget in
+`unlighthouse.config.ts` (performance 90, accessibility 100, best practices 95, SEO
+100). The report is in `.lighthouse/unlighthouse/`.
+
+## Search engines and agents
+
+- `src/i18n/topics.ts` holds the pages that answer one search each. A new one needs its
+  two pages (English and Spanish) under `src/pages/`; the sitemap picks it up.
+- `public/llms.txt` is the site for AI agents: keep its facts in step with the page.
+- After a deploy that changes what the pages say, `bun run indexnow` tells Bing and the
+  other IndexNow engines. Google is told through Search Console.
+
 ## The picture for shared links
 
 `public/og-en.png` and `public/og-es.png` are captures of `scripts/og.html` (add
@@ -57,7 +75,8 @@ its path in `CHROME_PATH`.
 
 ## Deploy
 
-Cloudflare Workers static assets (`wrangler.jsonc`), at `ogmios.ilien.dev`.
+Cloudflare Workers static assets (`wrangler.jsonc`), at `ogmios.ilien.dev`. Workers Builds is
+connected to this repository: every push to `main` is built and deployed.
 
 ## Licence
 
