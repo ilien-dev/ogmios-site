@@ -103,7 +103,19 @@ export class Actor {
     this.pointer.style.left = `${x * 100}%`;
     this.pointer.style.top = `${y * 100}%`;
     this.pointer.dataset.on = "";
-    await wait(time + 140);
+    // It leaves as an arrow and takes the shape of what it lands on as it gets there.
+    delete this.pointer.dataset.kind;
+    await wait(Math.max(0, time - 90));
+    const kind = this.kindOf(el);
+    if (kind) this.pointer.dataset.kind = kind;
+    await wait(230);
+  }
+
+  /** The cursor the system would show over an element: a hand, a text bar, or none. */
+  private kindOf(el: HTMLElement): string {
+    if (el.matches("input:not([type=checkbox]):not([type=radio]), textarea")) return "text";
+    const cursor = this.doc.defaultView?.getComputedStyle(el).cursor;
+    return cursor === "pointer" || el.closest("button, a, [role=button], summary, label") ? "hand" : "";
   }
 
   async click(el: HTMLElement): Promise<void> {
@@ -141,5 +153,6 @@ export class Actor {
   /** Takes the pointer away, as when the hand rests. */
   rest(): void {
     delete this.pointer.dataset.on;
+    delete this.pointer.dataset.kind;
   }
 }

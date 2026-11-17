@@ -640,6 +640,26 @@
 .stage-pointer[data-on] {
   opacity: 1;
 }
+/* The pointer takes the shape the system would give it over what it rests on: a hand over
+   what can be pressed, a bar over a field, the arrow anywhere else. */
+.stage-pointer svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 120ms;
+}
+.stage-pointer svg[data-shape="hand"] {
+  translate: -4px 0;
+}
+.stage-pointer svg[data-shape="text"] {
+  translate: -8px -10px;
+}
+.stage-pointer:not([data-kind]) svg[data-shape="arrow"],
+.stage-pointer[data-kind="hand"] svg[data-shape="hand"],
+.stage-pointer[data-kind="text"] svg[data-shape="text"] {
+  opacity: 1;
+}
 .stage-pointer[data-down] {
   scale: 0.82;
   transition-duration: 120ms;
