@@ -1,0 +1,58 @@
+{
+  "name": "Ogmios site",
+  "repo": "ilien-dev/ogmios-site",
+  "defaultBranch": "main",
+  "purpose": "is the product page of Ogmios, in English and Spanish, whose demos play the app's real interface.",
+  "shipped": [],
+  "issueFirst": true,
+  "measured": {
+    "enabled": false,
+    "types": [
+      "feat",
+      "fix",
+      "perf"
+    ],
+    "methods": []
+  },
+  "commands": [
+    "bun run check",
+    "bun run build"
+  ],
+  "ci": {
+    "requiredChecks": []
+  },
+  "release": {
+    "kind": "none",
+    "versionFiles": [],
+    "build": [],
+    "buildSecrets": [],
+    "npmPrepare": [],
+    "finish": []
+  },
+  "standard": 1,
+  "branch": {
+    "types": [
+      "feat",
+      "fix",
+      "perf",
+      "refactor",
+      "docs",
+      "test",
+      "build",
+      "ci",
+      "chore",
+      "style",
+      "revert"
+    ],
+    "maxWords": 5
+  },
+  "title": {
+    "max": 72
+  },
+  "releaseTypes": [
+    "feat",
+    "fix",
+    "perf",
+    "revert"
+  ]
+}
