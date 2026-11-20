@@ -1,0 +1,32 @@
+name: Feature request
+description: Propose one improvement to Ogmios site.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One idea per issue. Ogmios site is the product page of Ogmios, in English and Spanish, whose demos play the app's real interface. Ideas outside that purpose will be declined.
+        Search the [issues](https://github.com/ilien-dev/ogmios-site/issues?q=is%3Aissue) and [pull requests](https://github.com/ilien-dev/ogmios-site/pulls?q=is%3Apr) first.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you are trying to do and what gets in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before opening
+      options:
+        - label: I searched the existing issues and pull requests and nobody proposed this yet.
+          required: true
+        - label: This is a single idea, not several in one issue.
+          required: true
+        - label: I would like to send the pull request myself.
